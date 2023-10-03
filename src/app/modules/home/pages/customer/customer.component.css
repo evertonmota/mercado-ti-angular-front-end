@@ -1,0 +1,12 @@
+input{
+    margin: 5px 5px;
+    width: 500px;
+}
+.alert_{
+    color:red;
+    background: white;
+}
+.alertBlue{
+    color: blue;
+    background: white;
+}
