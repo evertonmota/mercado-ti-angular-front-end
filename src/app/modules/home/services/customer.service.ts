@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Customer } from '../model/customer';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -11,7 +11,9 @@ export class CustomerService {
 
   private autorizado : boolean =false;
   public emissorDeEvento = new EventEmitter();
-  private url: string = "https://meu-app-spring.herokuapp.com/api/spring/";
+  private url: string = "http://localhost:8080/api/spring/";
+
+  //private url: string = "https://meu-app-spring.herokuapp.com/api/spring/";
 
   /*
   private customers: Array<Customer> = [{
@@ -45,6 +47,16 @@ export class CustomerService {
   }
   public getCustomers(): Observable <Array<Customer>>{
     this.autorizado = true;
+
+    var token = localStorage.getItem('token');
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-type':'application/json',
+        'Authorization': ""+ token
+      })
+    }
+
     return this.http.get<Array<Customer>>(`${this.url}customers`, this.httpOptions).pipe(
       res => res,
       error => error

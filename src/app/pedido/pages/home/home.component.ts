@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { LoginService } from 'src/app/modules/home/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private login: LoginService) { }
 
   ngOnInit(): void {
   }
 
+  public enviaFormulario(formulario: NgForm){
+    this.login.login(formulario.value['usuario'], formulario.value['senha']);
+    formulario.reset();
+    alert('Token recuperado, agora você pode tentar acessar as funcionalidades');
+  }
 }

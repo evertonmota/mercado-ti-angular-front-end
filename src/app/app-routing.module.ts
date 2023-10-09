@@ -5,6 +5,7 @@ import { PizzaComponent } from './modules/home/pages/pizza/pizza.component';
 import { PaginaNaoExisteComponent } from './modules/home/pages/pagina-nao-existe/pagina-nao-existe/pagina-nao-existe.component';
 import { PodeAtivarGuard } from './modules/home/pages/guards/pode-ativar.guard';
 import { PodeDesativarGuard } from './modules/home/pages/guards/pode-desativar.guard';
+import { PodeCarregarGuard } from './modules/home/pages/guards/pode-carregar.guard';
 
 const routes: Routes = [
 
@@ -17,7 +18,11 @@ const routes: Routes = [
   {path: 'cadastro-pizza', component: PizzaComponent, children:[
     {path: ':id/:user', component: PizzaComponent},
   ]},
-  {path: 'pedido',loadChildren: () => import('./pedido/pedido-routing.module').then(x => x.PedidoRoutingModule)}, 
+  
+  {path: 'pedido',loadChildren: () => import('./pedido/pedido-routing.module').then(x => x.PedidoRoutingModule),
+    canLoad: [PodeCarregarGuard]
+  }, 
+
   {path: '404', component: PaginaNaoExisteComponent},
   {path: '**', redirectTo: '404'}
 
